@@ -170,6 +170,7 @@ local function debug_test(testname, testpath, build_flags)
     })
 end
 
+
 local function get_closest_above_cursor(test_tree)
     local result
     for _, curr in pairs(test_tree) do
@@ -288,6 +289,23 @@ function M.debug_test()
     debug_test(testname, testpath, M.test_buildflags)
 
     return true
+end
+
+function M.get_test_name()
+    local testname = get_closest_test()
+    local relativeFileDirname = vim.fn.fnamemodify(vim.fn.expand("%:.:h"), ":r")
+    local testpath = string.format("./%s", relativeFileDirname)
+
+    if testname == "" then
+        vim.notify("no test found")
+        return false
+    end
+
+
+    local msg = string.format("111starting debug session '%s : %s'...", testpath, testname)
+    vim.notify(msg)
+
+    return testname
 end
 
 function M.debug_last_test()
