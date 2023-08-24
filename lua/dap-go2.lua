@@ -293,17 +293,11 @@ end
 
 function M.get_test_name()
     local testname = get_closest_test()
-    local relativeFileDirname = vim.fn.fnamemodify(vim.fn.expand("%:.:h"), ":r")
-    local testpath = string.format("./%s", relativeFileDirname)
 
     if testname == "" then
         vim.notify("no test found")
-        return false
+        return ""
     end
-
-
-    local msg = string.format("111starting debug session '%s : %s'...", testpath, testname)
-    vim.notify(msg)
 
     return testname
 end
